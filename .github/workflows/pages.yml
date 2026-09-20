@@ -23,6 +23,8 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Expand community categories
+        run: python3 scripts/expand-community-categories.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
