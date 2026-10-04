@@ -1,18 +1,34 @@
-# HOTSPOT — People • Places • Passions
+# ZELVUN — Meet. Share. Belong.
 
-A lightweight public beta for discovering local groups and events around shared interests.
+ZELVUN is a lightweight public beta for discovering local groups and events around shared interests.
 
-## Beta features
-- Search groups and events
-- Browse activities and hobbies
-- Create groups and events locally in the browser
-- Mark events Interested / I'm Going
-- Optional location permission
-- Host Premium interest signup
-- Dating can be added later as a separate opt-in experience
+## Beta scope
 
-## Beta limitation
-This launch build is intentionally static. Data created in the browser is stored locally and is not yet shared between visitors. Do not use it to collect sensitive personal information. A production multi-user release requires authentication, shared storage, moderation, age assurance, privacy/legal review, and payment infrastructure.
+- Browse curated groups and events
+- Search by hobby, activity and category
+- Filter groups or events
+- Save an “Interested” / “Going” choice locally on the device
+- No account required
+- No precise location permission
+- No private messaging
+- No public profile or photo uploads
+- No dating or stranger-matching features
+- No payments or subscriptions in this first beta
+- 18+ community beta
+
+## Important beta limitation
+
+This release is intentionally a **curated static beta**. It does not yet provide shared accounts, server-side membership, or live user-created groups. Local interest/attendance choices are stored only in the visitor’s browser.
+
+That limitation is deliberate: it keeps the first public release substantially simpler while we validate the concept. A later multi-user release can add accounts, Host moderation, group applications, reporting/blocking, shared data, and paid organiser tools once the required privacy, safety, moderation and deletion systems are in place.
 
 ## Deployment
-The repository is configured for GitHub Pages. In GitHub, open Settings → Pages and select **GitHub Actions** if it is not already enabled.
+
+The repository includes a GitHub Pages workflow at `.github/workflows/pages.yml`. A successful workflow run is required before claiming the public site is live.
+
+## Brand
+
+**ZELVUN**  
+**Meet. Share. Belong.**
+
+The name is being treated as a provisional brand until formal trademark, app-store, company-name and domain clearance are completed.
