@@ -32,3 +32,17 @@ The repository includes a GitHub Pages workflow at `.github/workflows/pages.yml`
 **Meet. Share. Belong.**
 
 The name is being treated as a provisional brand until formal trademark, app-store, company-name and domain clearance are completed.
+
+## Current beta experience
+
+The public beta now includes:
+- searchable groups and events
+- category filters, including Languages and Music
+- individual group and event detail views
+- curated upcoming events inside group views
+- a device-local **My ZELVUN** area for saved groups and events
+- local "I'm Going" and saved-group state
+- responsive mobile-first presentation
+- no account, private messaging, precise location, payments, dating/matching, or public profiles
+
+The next production stage is an account-backed service with shared membership/attendance, organiser tools, reporting/blocking, moderation, privacy controls and data deletion. Those features should be introduced together with the required backend and safety infrastructure rather than simulated in the static beta.
