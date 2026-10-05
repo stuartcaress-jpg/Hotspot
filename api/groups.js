@@ -78,6 +78,8 @@ export default async function handler(req, res) {
         id: place.id,
         name: place.displayName?.text || 'Local group',
         address: place.formattedAddress || '',
+        latitude: lat ?? null,
+        longitude: lng ?? null,
         distanceMiles,
         distanceLabel: distanceMiles == null ? 'Distance unavailable' : distanceMiles < 0.1 ? 'Less than 0.1 miles away' : distanceMiles.toFixed(1) + ' miles away',
         rating: place.rating || null,
@@ -92,6 +94,7 @@ export default async function handler(req, res) {
       query: interest,
       area,
       radiusMiles,
+      center: { lat: center.lat, lng: center.lng },
       count: groups.length,
       groups,
       attribution: 'Place information provided by Google Maps Platform.'
