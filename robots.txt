@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stuartcaress-4511.vercel.app/sitemap.xml
+Sitemap: https://hotspot-ten-bice.vercel.app/sitemap.xml
