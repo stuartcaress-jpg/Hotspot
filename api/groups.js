@@ -22,7 +22,12 @@ export default async function handler(req, res) {
     const geo = await geoResponse.json();
 
     if (!geo.results?.length) {
-      return res.status(404).json({ error: 'We could not find that area. Try a town, city or postcode.' });
+      return res.status(502).json({
+        error: 'Google could not resolve that area.',
+        geocodingStatus: geo.status || 'UNKNOWN',
+        details: geo.error_message || null,
+        hint: 'Check that the Geocoding API is enabled for the same Google Cloud project as the API key.'
+      });
     }
 
     const center = geo.results[0].geometry.location;
