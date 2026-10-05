@@ -31,9 +31,14 @@ export default async function handler(req, res) {
     }
 
     const center = geo.results[0].geometry.location;
-    const radiusMeters = radiusMiles * 1609.344;
+    // Places API (New) limits a single searchText location-bias circle to 50 km.
+    // For a 50-mile ZELVUN search, use the centre plus four nearby centres and
+    // merge/dedupe the results so the full requested radius is covered.
+    const searchCenters = buildSearchCenters(center, radiusMiles);
+    const radiusMeters = Math.min(radiusMiles * 1609.344, 50000);
 
-    const placesResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    const placeResponses = await Promise.all(searchCenters.map(searchCenter =>
+      fetch('https://places.googleapis.com/v1/places:searchText', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,19 +50,27 @@ export default async function handler(req, res) {
         pageSize: 20,
         locationBias: {
           circle: {
-            center: { latitude: center.lat, longitude: center.lng },
+            center: { latitude: searchCenter.lat, longitude: searchCenter.lng },
             radius: radiusMeters
           }
         }
       })
-    });
+    }));
 
-    const places = await placesResponse.json();
-    if (!placesResponse.ok) {
-      return res.status(502).json({ error: 'The local places service returned an error.', details: places.error?.message || null });
+    const placePayloads = await Promise.all(placeResponses.map(response => response.json()));
+    const failed = placeResponses.findIndex(response => !response.ok);
+    if (failed !== -1) {
+      return res.status(502).json({ error: 'The local places service returned an error.', details: placePayloads[failed]?.error?.message || null });
     }
 
-    const groups = (places.places || []).map(place => {
+    const uniquePlaces = new Map();
+    for (const payload of placePayloads) {
+      for (const place of (payload.places || [])) {
+        if (place.id && !uniquePlaces.has(place.id)) uniquePlaces.set(place.id, place);
+      }
+    }
+
+    const groups = Array.from(uniquePlaces.values()).map(place => {
       const lat = place.location?.latitude;
       const lng = place.location?.longitude;
       const distanceMiles = (lat == null || lng == null) ? null : haversineMiles(center.lat, center.lng, lat, lng);
@@ -86,6 +99,20 @@ export default async function handler(req, res) {
   } catch (error) {
     return res.status(500).json({ error: 'Unable to search the local directory right now.' });
   }
+}
+
+function buildSearchCenters(center, radiusMiles) {
+  if (radiusMiles <= 31) return [center];
+  const offsetMiles = 20;
+  const latOffset = offsetMiles / 69;
+  const lonOffset = offsetMiles / (69 * Math.max(Math.cos(center.lat * Math.PI / 180), 0.2));
+  return [
+    center,
+    { lat: center.lat + latOffset, lng: center.lng },
+    { lat: center.lat - latOffset, lng: center.lng },
+    { lat: center.lat, lng: center.lng + lonOffset },
+    { lat: center.lat, lng: center.lng - lonOffset }
+  ];
 }
 
 function haversineMiles(lat1, lon1, lat2, lon2) {
