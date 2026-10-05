@@ -46,3 +46,29 @@ The public beta now includes:
 - no account, private messaging, precise location, payments, dating/matching, or public profiles
 
 The next production stage is an account-backed service with shared membership/attendance, organiser tools, reporting/blocking, moderation, privacy controls and data deletion. Those features should be introduced together with the required backend and safety infrastructure rather than simulated in the static beta.
+
+
+## Local Group Index
+
+The homepage now makes local-group discovery the primary ZELVUN experience. The local finder accepts an interest, town/city/postcode and radius, then calls `/api/groups` for live directory results.
+
+### Vercel setup for live results
+
+The server-side endpoint is ready for Google Places API (New). It geocodes the chosen area, searches the Places Text Search endpoint with a radius bias, calculates distance, and returns group/place name, address, rating, review count, official website and Google Maps link.
+
+To enable it on Vercel:
+
+1. Create/enable Google Maps Platform **Places API (New)** and the Geocoding API for the project.
+2. Create a restricted server API key.
+3. In the Vercel project, add the environment variable `GOOGLE_MAPS_API_KEY` for the Production environment.
+4. Redeploy the current `main` branch.
+
+The key is read only on the server from `process.env.GOOGLE_MAPS_API_KEY`; it is never placed in the browser code.
+
+The current UI also provides an external Google Maps fallback if the live directory has not been configured.
+
+### Reviews and community comments
+
+The first live directory version shows the source rating/review count and links users to the original Google Maps listing/reviews. ZELVUN's own comments and reviews should be added only after account identity, reporting, moderation, blocking and content-removal systems are in place.
+
+Google Places data is subject to Google's applicable attribution and data-use policies.
