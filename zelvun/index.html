@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#081426">
+<meta name="theme-color" content="#f3f8f8">
 <meta name="description" content="Zelvun brings learning, hobbies, live talent, local groups and community together. Discover something new and find your people.">
 <title>Zelvun — Learn, connect, belong</title>
 <style>
@@ -32,16 +32,71 @@
 @media(max-width:850px){.homepage-map-grid{grid-template-columns:1fr}.homepage-map .term-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.homepage-map .map-results{grid-template-columns:repeat(2,minmax(0,1fr))}#zelvunMap{height:340px}.map-tools{align-items:stretch}.location-entry{flex-basis:100%}}
 @media(max-width:520px){.homepage-map .term-fields{grid-template-columns:1fr}.homepage-map .map-results{grid-template-columns:1fr}.map-tools input{min-width:0;width:100%}.map-tools .phone-location{width:100%}.map-stage #zelvunMap{height:300px}}
 
+
+/* Personalised, light-theme discovery refresh */
+:root{color-scheme:light;--bg:#f2f7f7;--panel:#fff;--panel2:#f7f9f9;--line:#e0e8e8;--text:#1b2428;--muted:#667477;--purple:#3c333f;--blue:#34383b;--pink:#d6e9e4;--green:#bfe8dc;--gold:#d7eae4}
+body{background:#f1f7f8;color:#20272a}
+.top{background:#ffffffed;border-bottom:1px solid #e4ebeb}
+.brand small{color:#647477}
+.logo{box-shadow:none}
+.navlinks a{color:#4e5a5d}
+.navlinks a:hover,.navlinks a.active{background:#e6f4f0;color:#1b3430}
+.nav-cta,.primary{background:#252a2c;color:#fff;box-shadow:none}
+.secondary{background:#e0f3ee;border-color:#c7e8df;color:#203b36}
+.hero{background:linear-gradient(110deg,#ffffff,#e9f5f2);border-color:#e0e9e8;color:#20272a}
+.hero p{color:#58696b}.eyebrow{color:#388b7b}.hero h1 span{color:#368d7c}
+.searchbar{background:#fff;border-color:#e0e8e8;box-shadow:0 6px 24px #172f3210}
+.search-field{background:#f5f8f8}.searchbar select{background:#f5f8f8;color:#263336}
+.category{border-color:#e2eaea;color:#253134;box-shadow:0 3px 12px #183b3b08}
+.card,.feature,.event,.explore-card{background:#fff;border-color:#e0e8e8;color:#20272a}
+.card p,.feature p,.event p,.explore-card p{color:#667477}
+.pill{background:#edf5f3;border-color:#deebe7;color:#38534d}
+.text-link,.small-link{color:#287b6c}
+.footer{border-color:#e0e8e8;color:#657477}
+.mobile-nav{background:#fffffff2;border-color:#e0e8e8}.mobile-nav a{color:#526064}
+.map-search-panel{background:#fff;border-color:#e1e9e8;box-shadow:0 8px 26px #1b3b3b0a}
+.interest-sidebar h2{color:#20272a}.map-intro{color:#687779}
+.map-tools{background:#f7f9f9}.map-tools .phone-location{background:#fff;color:#263638;border-color:#dce6e4}
+.location-entry input{color:#253234}.map-note{color:#816a3b}
+.home-tabs{display:flex;gap:8px;margin:0 0 12px;align-items:center}
+.home-tabs a{display:inline-flex;align-items:center;justify-content:center;padding:9px 17px;border-radius:999px;background:#e9eeee;color:#3e4b4d;text-decoration:none;font-weight:700;font-size:13px}
+.home-tabs a.selected{background:#24292b;color:#fff}
+.home-tabs a:last-child{margin-left:auto;background:#d8f2e9;color:#244a40}
+.feed-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.feed-card{overflow:hidden;border:1px solid #e0e8e8;border-radius:18px;background:#fff;display:flex;flex-direction:column}
+.feed-visual{height:120px;display:grid;place-items:center;font-size:52px}
+.food-visual{background:linear-gradient(135deg,#d8f1e5,#f4f7d8)}
+.yoga-visual{background:linear-gradient(135deg,#e8e2f6,#f7e7ee)}
+.nature-visual{background:linear-gradient(135deg,#d7f0e6,#e8f0d8)}
+.feed-content{padding:15px;display:flex;flex-direction:column;gap:7px;flex:1}
+.feed-content h3,.article-row h3,.news-panel h3{margin:0;font-size:16px;color:#222a2c}
+.feed-content p,.article-row p,.news-panel p{margin:0;color:#687477;font-size:13px}
+.feed-tag{font-size:11px;font-weight:800;color:#368674;text-transform:uppercase;letter-spacing:.04em}
+.article-list{display:grid;gap:9px}
+.article-row{display:flex;align-items:center;gap:13px;padding:14px;background:#fff;border:1px solid #e0e8e8;border-radius:15px}
+.article-icon{width:52px;height:52px;flex-shrink:0;display:grid;place-items:center;background:#edf5f2;border-radius:13px;font-size:25px}
+.article-row>div:nth-child(2){flex:1;display:grid;gap:3px}
+.article-arrow{font-size:20px;color:#438b7b}
+.news-panel{display:flex;gap:14px;align-items:flex-start;padding:20px;background:#e4f3ef;border:1px solid #d3e9e3;border-radius:18px}
+.news-icon{font-size:30px}
+.map-results .map-result{background:#f8fbfa;border-color:#e0e9e7}
+.map-results .map-result h3{color:#263234}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#20272a}
+.notice{background:#fff8e8;border-color:#eadbb5;color:#715a2b}
+@media(max-width:850px){.feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.feed-grid{grid-template-columns:1fr}.feed-visual{height:105px}.home-tabs a{padding:9px 13px}.map-search-panel{padding:13px}.hero{min-height:0}.article-row{padding:11px}.article-icon{width:44px;height:44px}}
+
 </style>
 </head>
 <body>
 <header class="top"><nav class="nav">
 <a class="brand" href="#home" aria-label="Zelvun home"><span class="logo"><svg class="pin-logo" viewBox="0 0 100 100" role="img" aria-label="Zelvun rainbow location pin"><defs><linearGradient id="pinGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3cff"/><stop offset="24%" stop-color="#ed3eae"/><stop offset="48%" stop-color="#ff8b35"/><stop offset="67%" stop-color="#f6df39"/><stop offset="82%" stop-color="#28d89b"/><stop offset="100%" stop-color="#13c8ee"/></linearGradient><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#168bff"/><stop offset="30%" stop-color="#19d9ce"/><stop offset="55%" stop-color="#8b45ff"/><stop offset="76%" stop-color="#ff4fba"/><stop offset="100%" stop-color="#ffb33c"/></linearGradient></defs><path d="M50 7C29 7 14 23 14 43c0 23 25 43 36 55 11-12 36-32 36-55C86 23 71 7 50 7Z" fill="url(#pinGrad)"/><circle cx="50" cy="41" r="17" fill="#071426"/><ellipse cx="50" cy="86" rx="42" ry="8" fill="none" stroke="url(#ringGrad)" stroke-width="5"/><ellipse cx="50" cy="86" rx="29" ry="5" fill="none" stroke="url(#ringGrad)" stroke-width="4"/></svg></span><span><strong>ZELVUN</strong><small>Learn together. Connect together. Belong together.</small></span></a>
-<div class="navlinks"><a href="#map-search">Map search</a><a href="#videos">Watch & learn</a><a href="#events">Events</a><a href="#groups">Groups</a><a href="#talent">Talent & causes</a></div>
-<a class="nav-cta" href="#categories">Explore Zelvun ↗</a>
+<div class="navlinks"><a class="active" href="#for-you">For you</a><a href="#popular">Most popular</a><a href="#events">Events</a><a href="#groups">Groups</a><a href="#videos">Videos</a></div>
+<a class="nav-cta" href="#create">＋ Create</a>
 </nav></header>
 <main class="shell" id="home">
 <section class="section homepage-map" id="map-search">
+ <div class="home-tabs" id="for-you"><a class="selected" href="#for-you">For you</a><a href="#popular">Most popular</a><a href="#create">＋ Create</a></div>
  <div class="map-search-panel">
   <div class="homepage-map-grid">
    <div class="interest-sidebar">
@@ -101,6 +156,28 @@
 <article class="card searchable" data-tags="learning coding technology programming python beginner education"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/kqtD5dpn9C8?rel=0" title="Python for beginners — programming tutorial" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="card-body"><span class="pill">💻 Learn a skill</span><h3>Start learning Python</h3><p>A beginner-friendly programming lesson to help you take your first steps with code.</p><div class="card-foot"><span class="muted" style="font-size:12px">YouTube · freeCodeCamp</span><a class="text-link" href="https://www.youtube.com/watch?v=kqtD5dpn9C8" target="_blank" rel="noopener noreferrer">Open video ↗</a></div></div></article>
 <article class="card searchable" data-tags="music focus relaxing community live music study"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?rel=0" title="Lofi Girl — relaxing music livestream" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="card-body"><span class="pill">🎵 Music & focus</span><h3>Relax, study or create</h3><p>Put on some background music while you learn, draw or work on a project.</p><div class="card-foot"><span class="muted" style="font-size:12px">YouTube · Lofi Girl</span><a class="text-link" href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank" rel="noopener noreferrer">Open stream ↗</a></div></div></article>
 </div><div class="empty" id="videoEmpty">No videos match that search. Try another topic.</div><p class="muted" style="font-size:12px;margin-top:12px">Videos are served by YouTube, not hosted by Zelvun. Playback depends on each creator's embedding settings and YouTube availability.</p></section>
+
+<section class="section" id="interest-feed">
+ <div class="section-head"><div><h2>Picked for your interests</h2><p>Ideas, useful reads and updates matched to the things you enjoy.</p></div><a class="small-link" href="#interest-articles">View all ↗</a></div>
+ <div class="feed-grid">
+  <article class="feed-card searchable" data-tags="cooking healthy food superfoods nutrition berries greens"><div class="feed-visual food-visual">🥑</div><div class="feed-content"><span class="feed-tag">Food & wellbeing</span><h3>Superfoods worth getting to know</h3><p>A friendly introduction to berries, leafy greens, beans and other nutrient-rich foods.</p><a class="text-link" href="#interest-articles">Read the guide ↗</a></div></article>
+  <article class="feed-card searchable" data-tags="yoga flexibility movement wellbeing fitness"><div class="feed-visual yoga-visual">🧘</div><div class="feed-content"><span class="feed-tag">Movement</span><h3>Small ways to build a yoga habit</h3><p>Simple ideas for making time to stretch, breathe and move at your own pace.</p><a class="text-link" href="#interest-articles">Explore tips ↗</a></div></article>
+  <article class="feed-card searchable" data-tags="gardening outdoors nature wildlife community"><div class="feed-visual nature-visual">🌿</div><div class="feed-content"><span class="feed-tag">Nature & outdoors</span><h3>Seasonal things to notice outside</h3><p>Discover nature activities and local groups to enjoy throughout the year.</p><a class="text-link" href="#interest-articles">Discover more ↗</a></div></article>
+ </div>
+</section>
+<section class="section" id="interest-articles">
+ <div class="section-head"><div><h2>Articles & useful ideas</h2><p>More to explore beyond the groups and events.</p></div><a class="small-link" href="#news">Latest news ↗</a></div>
+ <div class="article-list">
+  <article class="article-row searchable" data-tags="superfoods cooking healthy food nutrition"><div class="article-icon">🥗</div><div><span class="feed-tag">Food & cooking</span><h3>A beginner's guide to superfoods</h3><p>What the term means, everyday examples, and why a varied diet matters.</p></div><span class="article-arrow">↗</span></article>
+  <article class="article-row searchable" data-tags="yoga exercise wellbeing flexibility"><div class="article-icon">🧘</div><div><span class="feed-tag">Yoga & wellbeing</span><h3>How to choose a yoga class that suits you</h3><p>Learn about different styles, beginner sessions and finding a welcoming group.</p></div><span class="article-arrow">↗</span></article>
+  <article class="article-row searchable" data-tags="outdoors walking nature local groups"><div class="article-icon">🥾</div><div><span class="feed-tag">Outdoors</span><h3>Make a local walk more rewarding</h3><p>Ideas for exploring nearby trails and meeting others who enjoy the outdoors.</p></div><span class="article-arrow">↗</span></article>
+ </div>
+</section>
+<section class="section" id="news">
+ <div class="section-head"><div><h2>News for your interests</h2><p>Topic-based updates to help you keep up with what you care about.</p></div><span class="pill">Sample feed</span></div>
+ <div class="news-panel"><div class="news-icon">📰</div><div><h3>Your interests, your news</h3><p>When a news source is connected, this area can show recent updates about your chosen topics—such as food, yoga, local events, science or the outdoors. These preview items are examples, not live news.</p></div></div>
+</section>
+
 <section class="section" id="talent"><div class="section-head"><div><h2>More than videos</h2><p>A place for creativity, conversation and doing good together.</p></div></div><div class="two-col">
 <article class="feature searchable" data-tags="music talent performance live artist singing comedy poetry magic"><div class="big">🎤</div><div><h3>Share your talent</h3><p>Music, singing, comedy, poetry, magic and performances. Live broadcasting and virtual gifts can come in a later phase.</p><a class="text-link" href="#groups">Explore the idea ↗</a></div></article>
 <article class="feature searchable" data-tags="charity fundraising causes community volunteer donate"><div class="big">💚</div><div><h3>Support a cause</h3><p>Discover charity events and community fundraisers. Donations and verified charity payouts will be added only after suitable payment safeguards are in place.</p><a class="text-link" href="#events">Explore events ↗</a></div></article>
@@ -117,10 +194,10 @@
 <article class="explore-card searchable" data-tags="wellbeing friendly chat loneliness friendship older adults"><div class="emoji">☕</div><h3>Have a friendly chat</h3><p>Make room for conversation and connection.</p><span class="pill">Wellbeing</span></article>
 <article class="explore-card searchable" data-tags="local meetups events clubs activities"><div class="emoji">📍</div><h3>Meet locally</h3><p>Turn shared interests into real-world meetups.</p><span class="pill">Local</span></article>
 </div></section>
-<div class="notice">Zelvun is being built in stages. This early homepage has working topic search and embedded YouTube players; accounts, user-submitted groups, messaging, live broadcasting, payments, gifts and donations are not enabled yet.</div>
+<div class="notice" id="create">Zelvun is being built in stages. This early homepage has working topic search and embedded YouTube players; accounts, user-submitted groups, messaging, live broadcasting, payments, gifts and donations are not enabled yet.</div>
 <footer class="footer"><a class="brand" href="#home" style="gap:8px"><span class="logo" style="width:34px;height:34px"><svg class="pin-logo" viewBox="0 0 100 100" role="img" aria-label="Zelvun rainbow location pin"><defs><linearGradient id="pinGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3cff"/><stop offset="24%" stop-color="#ed3eae"/><stop offset="48%" stop-color="#ff8b35"/><stop offset="67%" stop-color="#f6df39"/><stop offset="82%" stop-color="#28d89b"/><stop offset="100%" stop-color="#13c8ee"/></linearGradient><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#168bff"/><stop offset="30%" stop-color="#19d9ce"/><stop offset="55%" stop-color="#8b45ff"/><stop offset="76%" stop-color="#ff4fba"/><stop offset="100%" stop-color="#ffb33c"/></linearGradient></defs><path d="M50 7C29 7 14 23 14 43c0 23 25 43 36 55 11-12 36-32 36-55C86 23 71 7 50 7Z" fill="url(#pinGrad)"/><circle cx="50" cy="41" r="17" fill="#071426"/><ellipse cx="50" cy="86" rx="42" ry="8" fill="none" stroke="url(#ringGrad)" stroke-width="5"/><ellipse cx="50" cy="86" rx="29" ry="5" fill="none" stroke="url(#ringGrad)" stroke-width="4"/></svg></span><strong style="font-size:17px">ZELVUN</strong></a><span>Learn together. Connect together. Belong together.</span><span>Early preview · Built to grow with the community</span></footer>
 </main>
-<nav class="mobile-nav" aria-label="Quick navigation"><a href="#home"><span>⌂</span>Home</a><a href="#map-search"><span>⌖</span>Map</a><a href="#videos"><span>▶</span>Learn</a><a href="#events"><span>▦</span>Events</a><a href="#groups"><span>♧</span>Groups</a><a href="#talent"><span>♡</span>Talent</a></nav>
+<nav class="mobile-nav" aria-label="Quick navigation"><a href="#for-you"><span>⌂</span>For you</a><a href="#map-search"><span>⌖</span>Explore</a><a href="#create"><span>＋</span>Create</a><a href="#events"><span>▦</span>Events</a><a href="#groups"><span>♧</span>Groups</a></nav>
 <script>
 
 /* Map demonstration: illustrative pins only until a real listings provider is connected. */
