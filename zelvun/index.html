@@ -12,18 +12,68 @@
 @media(max-width:1000px){.nav{gap:12px;padding:10px 16px}.navlinks a{padding:9px 8px}.categories{grid-template-columns:repeat(5,minmax(0,1fr))}.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.explore-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.events{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.searchbar{flex-wrap:wrap}.search-field{flex:1 1 100%}.searchbar select{flex:1;max-width:none}.searchbar .primary{flex:1}.logo{width:43px;height:43px}.shell{padding:0 12px 92px}.nav{padding:9px 12px}.logo{width:40px;height:40px;border-radius:13px}.brand strong{font-size:24px}.brand small{font-size:9px}.navlinks{display:none}.nav-cta{margin-left:auto;padding:10px 12px;font-size:12px}.hero{margin-top:13px;min-height:340px;padding:23px;background-position:60% center}.hero h1{font-size:43px}.hero p{font-size:15px}.searchbar{margin:12px 0 22px}.searchbar input{padding:9px 7px;font-size:13px}.searchbar .primary{padding:10px 12px}.categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.category{min-height:91px;padding:12px}.category strong{font-size:13px}.video-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.events{grid-template-columns:1fr}.explore-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feature{padding:16px}.section{margin-top:27px}.section-head{align-items:start}.mobile-nav{position:fixed;z-index:12;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:8px 4px max(8px,env(safe-area-inset-bottom));background:#071426f2;backdrop-filter:blur(14px);border-top:1px solid #ffffff1b}.mobile-nav a{font-size:10px;color:#c0cee4;text-decoration:none;text-align:center;display:grid;gap:2px;min-width:50px}.mobile-nav a span{font-size:18px}.footer{padding-bottom:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* Multi-interest discovery map */
+.map-search-panel{border:1px solid #355579;background:linear-gradient(145deg,#10243e,#09182b);border-radius:22px;padding:clamp(14px,2.5vw,24px)}
+.term-fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:14px 0}
+.term-fields input{width:100%;min-width:0;border:1px solid #385575;background:#08182b;color:#fff;border-radius:12px;padding:11px 10px}
+.term-fields input::placeholder{color:#91a8c5}
+.map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.map-tools label{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px}
+.map-tools input{border:1px solid #385575;background:#08182b;color:#fff;border-radius:10px;padding:10px;min-width:210px}
+.map-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(230px,.8fr);gap:14px}
+#zelvunMap{height:390px;min-height:300px;border:1px solid #355579;border-radius:16px;overflow:hidden;background:#152b43}
+.map-results{display:flex;flex-direction:column;gap:9px;max-height:390px;overflow:auto}
+.map-result{border:1px solid #2b4565;background:#0b1b30;border-radius:13px;padding:12px}
+.map-result h3{font-size:14px;margin:0 0 4px}.map-result p{font-size:12px;color:var(--muted);margin:0 0 7px}
+.map-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.map-note{font-size:12px;color:#f4d79b;margin:12px 0 0}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10243e;color:#f7f9ff}.leaflet-popup-content{font:13px/1.45 system-ui}
+@media(max-width:850px){.term-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.map-layout{grid-template-columns:1fr}.map-results{max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}#zelvunMap{height:340px}}
+@media(max-width:520px){.term-fields{grid-template-columns:1fr}.map-results{grid-template-columns:1fr}.map-tools input{min-width:0;width:100%}}
+
 </style>
 </head>
 <body>
 <header class="top"><nav class="nav">
 <a class="brand" href="#home" aria-label="Zelvun home"><span class="logo"><svg class="pin-logo" viewBox="0 0 100 100" role="img" aria-label="Zelvun rainbow location pin"><defs><linearGradient id="pinGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3cff"/><stop offset="24%" stop-color="#ed3eae"/><stop offset="48%" stop-color="#ff8b35"/><stop offset="67%" stop-color="#f6df39"/><stop offset="82%" stop-color="#28d89b"/><stop offset="100%" stop-color="#13c8ee"/></linearGradient><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#168bff"/><stop offset="30%" stop-color="#19d9ce"/><stop offset="55%" stop-color="#8b45ff"/><stop offset="76%" stop-color="#ff4fba"/><stop offset="100%" stop-color="#ffb33c"/></linearGradient></defs><path d="M50 7C29 7 14 23 14 43c0 23 25 43 36 55 11-12 36-32 36-55C86 23 71 7 50 7Z" fill="url(#pinGrad)"/><circle cx="50" cy="41" r="17" fill="#071426"/><ellipse cx="50" cy="86" rx="42" ry="8" fill="none" stroke="url(#ringGrad)" stroke-width="5"/><ellipse cx="50" cy="86" rx="29" ry="5" fill="none" stroke="url(#ringGrad)" stroke-width="4"/></svg></span><span><strong>ZELVUN</strong><small>Learn together. Connect together. Belong together.</small></span></a>
-<div class="navlinks"><a href="#videos">Watch & learn</a><a href="#events">Events</a><a href="#groups">Groups</a><a href="#talent">Talent & causes</a></div>
+<div class="navlinks"><a href="#map-search">Map search</a><a href="#videos">Watch & learn</a><a href="#events">Events</a><a href="#groups">Groups</a><a href="#talent">Talent & causes</a></div>
 <a class="nav-cta" href="#categories">Explore Zelvun ↗</a>
 </nav></header>
 <main class="shell" id="home">
 <section class="hero"><div class="hero-copy"><div class="eyebrow">A world of shared interests</div><h1>Discover. Learn.<br><span>Take part.</span></h1><p>Find local groups, workshops, events and amazing people who share your interests.</p><div class="hero-actions"><a class="primary" href="#events">Find local events ↓</a><a class="secondary" href="#groups">Find your community</a></div></div></section>
 <form class="searchbar" id="searchForm"><label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" aria-label="What are you looking for?" placeholder="Theatre shows, craft fairs, painting classes, hiking groups…"></label><label class="search-field" style="flex:.8"><span aria-hidden="true">📍</span><input id="location" type="text" aria-label="Town, city or postcode" placeholder="Enter town, city or postcode"></label><select id="radius" aria-label="Search radius"><option value="5">5 miles</option><option value="10">10 miles</option><option value="25" selected>25 miles</option><option value="50">50 miles</option></select><button class="primary" type="submit">⌕ Search</button></form>
 <p id="searchMessage" class="muted" style="font-size:12px;margin:-16px 4px 18px">Search example content by interest. Live local listings will be connected in a later step.</p>
+
+<section class="section" id="map-search">
+ <div class="section-head"><div><h2>Explore on the map</h2><p>Search up to five interests at once and see matching places together.</p></div></div>
+ <div class="map-search-panel">
+  <div class="term-fields" aria-label="Up to five search interests">
+   <input class="map-term" aria-label="Interest 1" placeholder="1. Wild swimming" value="Wild swimming">
+   <input class="map-term" aria-label="Interest 2" placeholder="2. Pottery" value="Pottery">
+   <input class="map-term" aria-label="Interest 3" placeholder="3. Basketball" value="Basketball">
+   <input class="map-term" aria-label="Interest 4" placeholder="4. Archery" value="Archery">
+   <input class="map-term" aria-label="Interest 5" placeholder="5. Baking courses" value="Baking courses">
+  </div>
+  <div class="map-tools">
+   <label for="mapLocation">📍 Location</label><input id="mapLocation" value="Retford, UK" placeholder="Town, city or postcode">
+   <label for="mapRadius">Radius</label><select id="mapRadius" style="background:#08182b;color:white;border:1px solid #385575;border-radius:10px;padding:10px"><option>5 miles</option><option>10 miles</option><option selected>25 miles</option><option>50 miles</option></select>
+   <button class="primary" id="mapSearchButton" type="button">Find on map</button>
+  </div>
+  <div class="map-layout">
+   <div id="zelvunMap" role="application" aria-label="Map of matching interests"></div>
+   <div class="map-results" id="mapResults" aria-live="polite">
+    <article class="map-result"><h3><span class="map-dot" style="background:#21d4c5"></span>Wild swimming</h3><p>Demo map marker · Real results not connected</p></article>
+    <article class="map-result"><h3><span class="map-dot" style="background:#a855f7"></span>Pottery</h3><p>Demo map marker · Real results not connected</p></article>
+    <article class="map-result"><h3><span class="map-dot" style="background:#338cff"></span>Basketball</h3><p>Demo map marker · Real results not connected</p></article>
+    <article class="map-result"><h3><span class="map-dot" style="background:#ff9b42"></span>Archery</h3><p>Demo map marker · Real results not connected</p></article>
+    <article class="map-result"><h3><span class="map-dot" style="background:#f45b9a"></span>Baking courses</h3><p>Demo map marker · Real results not connected</p></article>
+   </div>
+  </div>
+  <p class="map-note" id="mapNote">Prototype preview: the map and pins demonstrate the experience only. They are not verified groups or venues. Live search needs a connected places/events data source.</p>
+ </div>
+</section>
+
 <section class="section" id="categories"><div class="section-head"><div><h2>Explore your interests</h2><p>There's room for every passion, every skill and every kind of person.</p></div></div>
 <div class="categories">
 <button class="category c1" data-category="Learning"><span class="emoji">🎓</span><strong>Education & learning</strong></button>
@@ -62,8 +112,53 @@
 <div class="notice">Zelvun is being built in stages. This early homepage has working topic search and embedded YouTube players; accounts, user-submitted groups, messaging, live broadcasting, payments, gifts and donations are not enabled yet.</div>
 <footer class="footer"><a class="brand" href="#home" style="gap:8px"><span class="logo" style="width:34px;height:34px"><svg class="pin-logo" viewBox="0 0 100 100" role="img" aria-label="Zelvun rainbow location pin"><defs><linearGradient id="pinGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3cff"/><stop offset="24%" stop-color="#ed3eae"/><stop offset="48%" stop-color="#ff8b35"/><stop offset="67%" stop-color="#f6df39"/><stop offset="82%" stop-color="#28d89b"/><stop offset="100%" stop-color="#13c8ee"/></linearGradient><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#168bff"/><stop offset="30%" stop-color="#19d9ce"/><stop offset="55%" stop-color="#8b45ff"/><stop offset="76%" stop-color="#ff4fba"/><stop offset="100%" stop-color="#ffb33c"/></linearGradient></defs><path d="M50 7C29 7 14 23 14 43c0 23 25 43 36 55 11-12 36-32 36-55C86 23 71 7 50 7Z" fill="url(#pinGrad)"/><circle cx="50" cy="41" r="17" fill="#071426"/><ellipse cx="50" cy="86" rx="42" ry="8" fill="none" stroke="url(#ringGrad)" stroke-width="5"/><ellipse cx="50" cy="86" rx="29" ry="5" fill="none" stroke="url(#ringGrad)" stroke-width="4"/></svg></span><strong style="font-size:17px">ZELVUN</strong></a><span>Learn together. Connect together. Belong together.</span><span>Early preview · Built to grow with the community</span></footer>
 </main>
-<nav class="mobile-nav" aria-label="Quick navigation"><a href="#home"><span>⌂</span>Home</a><a href="#videos"><span>▶</span>Learn</a><a href="#events"><span>▦</span>Events</a><a href="#groups"><span>♧</span>Groups</a><a href="#talent"><span>♡</span>Talent</a></nav>
+<nav class="mobile-nav" aria-label="Quick navigation"><a href="#home"><span>⌂</span>Home</a><a href="#map-search"><span>⌖</span>Map</a><a href="#videos"><span>▶</span>Learn</a><a href="#events"><span>▦</span>Events</a><a href="#groups"><span>♧</span>Groups</a><a href="#talent"><span>♡</span>Talent</a></nav>
 <script>
+
+/* Map demonstration: illustrative pins only until a real listings provider is connected. */
+const mapNote=document.getElementById('mapNote');
+const mapResults=document.getElementById('mapResults');
+const mapTerms=[...document.querySelectorAll('.map-term')];
+let zelvunMap=null, demoMarkers=[];
+function setupDemoMap(){
+ if(!window.L){mapNote.textContent='The interactive map library could not load. The search design is still visible above; try refreshing when online.';return}
+ if(zelvunMap)return;
+ zelvunMap=L.map('zelvunMap').setView([53.32,-0.94],10);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(zelvunMap);
+ const samples=[
+  {lat:53.322,lng:-0.943,title:'Wild swimming',colour:'#21d4c5'},
+  {lat:53.345,lng:-0.78,title:'Pottery',colour:'#a855f7'},
+  {lat:53.28,lng:-0.97,title:'Basketball',colour:'#338cff'},
+  {lat:53.36,lng:-1.04,title:'Archery',colour:'#ff9b42'},
+  {lat:53.25,lng:-0.83,title:'Baking courses',colour:'#f45b9a'}
+ ];
+ samples.forEach(s=>{
+  const icon=L.divIcon({className:'',html:'<div style="background:'+s.colour+';width:24px;height:24px;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px #0008"></div>',iconSize:[24,24],iconAnchor:[12,24]});
+  const marker=L.marker([s.lat,s.lng],{icon}).addTo(zelvunMap).bindPopup('<strong>'+s.title+'</strong><br>Illustrative demo pin — not a real listing');
+  demoMarkers.push(marker);
+ });
+}
+function updateMapDemo(){
+ const terms=mapTerms.map(x=>x.value.trim()).filter(Boolean).slice(0,5);
+ const loc=document.getElementById('mapLocation').value.trim()||'your chosen area';
+ const radius=document.getElementById('mapRadius').value;
+ mapResults.innerHTML='';
+ if(!terms.length){mapResults.innerHTML='<article class="map-result"><h3>Add an interest</h3><p>Enter up to five interests above.</p></article>';mapNote.textContent='Enter one or more interests to preview the map search.';return}
+ const colours=['#21d4c5','#a855f7','#338cff','#ff9b42','#f45b9a'];
+ terms.forEach((term,i)=>{
+  const item=document.createElement('article');item.className='map-result';
+  const title=document.createElement('h3');const dot=document.createElement('span');dot.className='map-dot';dot.style.background=colours[i];title.append(dot,document.createTextNode(term));
+  const p=document.createElement('p');p.textContent='Demo marker · '+loc+' · within '+radius;
+  item.append(title,p);mapResults.append(item);
+ });
+ mapNote.textContent='Showing '+terms.length+' illustrative search term'+(terms.length===1?'':'s')+' for '+loc+' within '+radius+'. These pins are examples, not verified listings; live groups, venues and event results still need a data connection.';
+ if(zelvunMap){zelvunMap.invalidateSize();zelvunMap.setView([53.32,-0.94],10)}
+}
+const leafletCss=document.createElement('link');leafletCss.rel='stylesheet';leafletCss.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(leafletCss);
+const leafletScript=document.createElement('script');leafletScript.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';leafletScript.onload=setupDemoMap;leafletScript.onerror=()=>{mapNote.textContent='Map tiles could not load in this preview. Live listing integration is a later step.'};document.head.appendChild(leafletScript);
+document.getElementById('mapSearchButton').addEventListener('click',()=>{updateMapDemo();if(zelvunMap)zelvunMap.invalidateSize()});
+mapTerms.forEach(el=>el.addEventListener('input',()=>{const filled=mapTerms.filter(x=>x.value.trim());if(filled.length>5){el.value='';mapNote.textContent='You can search up to five interests at once.'}}));
+
 const search=document.getElementById('search');
 const cards=[...document.querySelectorAll('.searchable')];
 const videoCards=[...document.querySelectorAll('#videoGrid .searchable')];
