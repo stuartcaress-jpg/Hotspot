@@ -14,8 +14,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 /* Multi-interest discovery map */
-.homepage-map{margin-top:18px}.homepage-map .section-head h2{font-size:clamp(25px,3.5vw,36px)}.homepage-map .map-search-panel{border:1px solid #355579;background:linear-gradient(145deg,#10243e,#09182b);border-radius:22px;padding:clamp(14px,2.5vw,24px)}
-.term-fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:14px 0}
+.homepage-map{margin-top:18px}.homepage-map .map-search-panel{border:1px solid #355579;background:linear-gradient(145deg,#10243e,#09182b);border-radius:22px;padding:clamp(14px,2.5vw,24px)}
+.homepage-map-grid{display:grid;grid-template-columns:minmax(235px,.75fr) minmax(0,1.7fr);gap:14px;align-items:stretch}.interest-sidebar{padding:4px 2px}.interest-sidebar h2{font-size:clamp(24px,3vw,34px);line-height:1.08;margin:8px 0}.map-intro{font-size:13px;color:var(--muted);margin:0 0 12px}.homepage-map .term-fields{display:grid;grid-template-columns:1fr;gap:7px;margin:14px 0}.homepage-map .term-fields input{border-radius:999px;padding:9px 12px}.map-stage{position:relative;min-width:0}.map-stage #zelvunMap{height:340px;min-height:300px}.map-list-toggle{position:absolute;right:12px;bottom:12px;z-index:500;background:#fff;color:#10243e;border:0;border-radius:12px;padding:10px 14px;font-weight:800}.map-tools{margin:12px 0 0;padding:8px;background:#f4f7ff;border-radius:15px;color:#132541}.map-tools .phone-location{background:#fff;color:#17274a;border-color:#d8e0ef;display:flex;flex-direction:column;align-items:flex-start;min-width:175px}.phone-location small,.location-entry small{display:block;font-size:11px;font-weight:400;color:#6b7892}.or-label{color:#687792;font-size:12px}.location-entry{display:flex;align-items:center;gap:9px;flex:1;min-width:220px;color:#ee3288}.location-entry input{border:0;background:transparent;color:#14243b;padding:2px 0;min-width:0;width:100%;outline:0}.location-entry input::placeholder{color:#65738d}.radius-label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:#586883}.radius-label select{color:#17274a!important;background:#fff!important}.homepage-map .map-results{display:none;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px}.homepage-map .map-results.show{display:grid}.term-fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:14px 0}
 .term-fields input{width:100%;min-width:0;border:1px solid #385575;background:#08182b;color:#fff;border-radius:12px;padding:11px 10px}
 .term-fields input::placeholder{color:#91a8c5}
 .map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
@@ -29,8 +29,8 @@
 .map-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
 .map-note{font-size:12px;color:#f4d79b;margin:12px 0 0}
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#10243e;color:#f7f9ff}.leaflet-popup-content{font:13px/1.45 system-ui}
-@media(max-width:850px){.term-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.map-layout{grid-template-columns:1fr}.map-results{max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}#zelvunMap{height:340px}}
-@media(max-width:520px){.term-fields{grid-template-columns:1fr}.map-results{grid-template-columns:1fr}.map-tools input{min-width:0;width:100%}}
+@media(max-width:850px){.homepage-map-grid{grid-template-columns:1fr}.homepage-map .term-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.homepage-map .map-results{grid-template-columns:repeat(2,minmax(0,1fr))}#zelvunMap{height:340px}.map-tools{align-items:stretch}.location-entry{flex-basis:100%}}
+@media(max-width:520px){.homepage-map .term-fields{grid-template-columns:1fr}.homepage-map .map-results{grid-template-columns:1fr}.map-tools input{min-width:0;width:100%}.map-tools .phone-location{width:100%}.map-stage #zelvunMap{height:300px}}
 
 </style>
 </head>
@@ -42,33 +42,39 @@
 </nav></header>
 <main class="shell" id="home">
 <section class="section homepage-map" id="map-search">
- <div class="section-head"><div><h2>Explore on the map</h2><p>Search up to five interests at once and see matching places together.</p></div></div>
  <div class="map-search-panel">
-  <div class="term-fields" aria-label="Up to five search interests">
-   <input class="map-term" aria-label="Interest 1" placeholder="1. Wild swimming" value="Wild swimming">
-   <input class="map-term" aria-label="Interest 2" placeholder="2. Pottery" value="Pottery">
-   <input class="map-term" aria-label="Interest 3" placeholder="3. Basketball" value="Basketball">
-   <input class="map-term" aria-label="Interest 4" placeholder="4. Archery" value="Archery">
-   <input class="map-term" aria-label="Interest 5" placeholder="5. Baking courses" value="Baking courses">
-  </div>
-  <div class="map-tools">
-   <label for="mapLocation">📍 Enter location</label><input id="mapLocation" value="" placeholder="Enter postcode or place name" autocomplete="postal-code">
-   <button class="secondary" id="usePhoneLocation" type="button">◎ Use my phone location</button>
-   <label for="mapRadius">Radius</label><select id="mapRadius" style="background:#08182b;color:white;border:1px solid #385575;border-radius:10px;padding:10px"><option>5 miles</option><option>10 miles</option><option selected>25 miles</option><option>50 miles</option></select>
-   <button class="primary" id="mapSearchButton" type="button">Find on map</button>
-  </div>
-  <p id="locationStatus" aria-live="polite" style="font-size:12px;color:#b6c5dc;margin:0 0 12px">Enter a postcode or place name, or let Zelvun use your phone location.</p>
-  <div class="map-layout">
-   <div id="zelvunMap" role="application" aria-label="Map of matching interests"></div>
-   <div class="map-results" id="mapResults" aria-live="polite">
-    <article class="map-result"><h3><span class="map-dot" style="background:#21d4c5"></span>Wild swimming</h3><p>Demo map marker · Real results not connected</p></article>
-    <article class="map-result"><h3><span class="map-dot" style="background:#a855f7"></span>Pottery</h3><p>Demo map marker · Real results not connected</p></article>
-    <article class="map-result"><h3><span class="map-dot" style="background:#338cff"></span>Basketball</h3><p>Demo map marker · Real results not connected</p></article>
-    <article class="map-result"><h3><span class="map-dot" style="background:#ff9b42"></span>Archery</h3><p>Demo map marker · Real results not connected</p></article>
-    <article class="map-result"><h3><span class="map-dot" style="background:#f45b9a"></span>Baking courses</h3><p>Demo map marker · Real results not connected</p></article>
+  <div class="homepage-map-grid">
+   <div class="interest-sidebar">
+    <div class="eyebrow">Discover nearby</div><h2>Find local activities on the map</h2><p class="map-intro">Search up to five interests and explore groups, events and venues near you.</p>
+    <div class="term-fields" aria-label="Up to five search interests">
+     <input class="map-term" aria-label="Interest 1" placeholder="1. Wild swimming" value="Wild swimming">
+     <input class="map-term" aria-label="Interest 2" placeholder="2. Pottery" value="Pottery">
+     <input class="map-term" aria-label="Interest 3" placeholder="3. Basketball" value="Basketball">
+     <input class="map-term" aria-label="Interest 4" placeholder="4. Archery" value="Archery">
+     <input class="map-term" aria-label="Interest 5" placeholder="5. Baking courses" value="Baking courses">
+    </div>
+   </div>
+   <div class="map-stage">
+    <div id="zelvunMap" role="application" aria-label="Map of matching interests"></div>
+    <button class="map-list-toggle" id="toggleMapList" type="button">☷ View list</button>
    </div>
   </div>
-  <p class="map-note" id="mapNote">Prototype preview: the map and pins demonstrate the experience only. They are not verified groups or venues. Live search needs a connected places/events data source.</p>
+  <div class="map-tools">
+   <button class="secondary phone-location" id="usePhoneLocation" type="button">◎ Use my location <small>Find activities near me</small></button>
+   <span class="or-label">or</span>
+   <label class="location-entry" for="mapLocation"><span aria-hidden="true">📍</span><span><input id="mapLocation" value="" placeholder="Enter postcode or place name" autocomplete="postal-code"><small>e.g. Retford, Nottingham, NG22</small></span></label>
+   <label class="radius-label" for="mapRadius">Radius<select id="mapRadius" style="background:#08182b;color:white;border:1px solid #385575;border-radius:10px;padding:10px"><option>5 miles</option><option>10 miles</option><option selected>25 miles</option><option>50 miles</option></select></label>
+   <button class="primary" id="mapSearchButton" type="button">⌕ Search map</button>
+  </div>
+  <p id="locationStatus" aria-live="polite" style="font-size:12px;color:#b6c5dc;margin:8px 0 0">Enter a postcode or place name, or allow phone location.</p>
+  <div class="map-results" id="mapResults" aria-live="polite">
+   <article class="map-result"><h3><span class="map-dot" style="background:#21d4c5"></span>Wild swimming</h3><p>Demo map marker · Real results not connected</p></article>
+   <article class="map-result"><h3><span class="map-dot" style="background:#a855f7"></span>Pottery</h3><p>Demo map marker · Real results not connected</p></article>
+   <article class="map-result"><h3><span class="map-dot" style="background:#338cff"></span>Basketball</h3><p>Demo map marker · Real results not connected</p></article>
+   <article class="map-result"><h3><span class="map-dot" style="background:#ff9b42"></span>Archery</h3><p>Demo map marker · Real results not connected</p></article>
+   <article class="map-result"><h3><span class="map-dot" style="background:#f45b9a"></span>Baking courses</h3><p>Demo map marker · Real results not connected</p></article>
+  </div>
+  <p class="map-note" id="mapNote">Preview pins are illustrative, not verified groups or venues. Real local listings will be connected in a later step.</p>
  </div>
 </section>
 <form class="searchbar" id="searchForm"><label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" aria-label="What are you looking for?" placeholder="Theatre shows, craft fairs, painting classes, hiking groups…"></label><label class="search-field" style="flex:.8"><span aria-hidden="true">📍</span><input id="location" type="text" aria-label="Town, city or postcode" placeholder="Enter town, city or postcode"></label><select id="radius" aria-label="Search radius"><option value="5">5 miles</option><option value="10">10 miles</option><option value="25" selected>25 miles</option><option value="50">50 miles</option></select><button class="primary" type="submit">⌕ Search</button></form>
@@ -193,6 +199,7 @@ document.getElementById('mapLocation').addEventListener('input',()=>{
 });
 
 document.getElementById('mapSearchButton').addEventListener('click',()=>{updateMapDemo();if(zelvunMap)zelvunMap.invalidateSize()});
+document.getElementById('toggleMapList').addEventListener('click',()=>{const list=document.getElementById('mapResults');const shown=list.classList.toggle('show');document.getElementById('toggleMapList').textContent=shown?'Hide list':'☷ View list'});
 mapTerms.forEach(el=>el.addEventListener('input',()=>{const filled=mapTerms.filter(x=>x.value.trim());if(filled.length>5){el.value='';mapNote.textContent='You can search up to five interests at once.'}}));
 
 const search=document.getElementById('search');
