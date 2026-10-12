@@ -20,7 +20,7 @@
 .term-fields input::placeholder{color:#91a8c5}
 .map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .map-tools label{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px}
-.map-tools input{border:1px solid #385575;background:#08182b;color:#fff;border-radius:10px;padding:10px;min-width:210px}
+.map-tools input{border:1px solid #385575;background:#08182b;color:#fff;border-radius:10px;padding:10px;min-width:210px;flex:1}
 .map-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(230px,.8fr);gap:14px}
 #zelvunMap{height:390px;min-height:300px;border:1px solid #355579;border-radius:16px;overflow:hidden;background:#152b43}
 .map-results{display:flex;flex-direction:column;gap:9px;max-height:390px;overflow:auto}
@@ -56,10 +56,12 @@
    <input class="map-term" aria-label="Interest 5" placeholder="5. Baking courses" value="Baking courses">
   </div>
   <div class="map-tools">
-   <label for="mapLocation">📍 Location</label><input id="mapLocation" value="Retford, UK" placeholder="Town, city or postcode">
+   <label for="mapLocation">📍 Enter location</label><input id="mapLocation" value="" placeholder="Enter postcode or place name" autocomplete="postal-code">
+   <button class="secondary" id="usePhoneLocation" type="button">◎ Use my phone location</button>
    <label for="mapRadius">Radius</label><select id="mapRadius" style="background:#08182b;color:white;border:1px solid #385575;border-radius:10px;padding:10px"><option>5 miles</option><option>10 miles</option><option selected>25 miles</option><option>50 miles</option></select>
    <button class="primary" id="mapSearchButton" type="button">Find on map</button>
   </div>
+  <p id="locationStatus" aria-live="polite" style="font-size:12px;color:#b6c5dc;margin:0 0 12px">Enter a postcode or place name, or let Zelvun use your phone location.</p>
   <div class="map-layout">
    <div id="zelvunMap" role="application" aria-label="Map of matching interests"></div>
    <div class="map-results" id="mapResults" aria-live="polite">
@@ -119,18 +121,18 @@
 const mapNote=document.getElementById('mapNote');
 const mapResults=document.getElementById('mapResults');
 const mapTerms=[...document.querySelectorAll('.map-term')];
-let zelvunMap=null, demoMarkers=[];
+let zelvunMap=null, demoMarkers=[], mapCenter=[53.32,-0.94];
 function setupDemoMap(){
  if(!window.L){mapNote.textContent='The interactive map library could not load. The search design is still visible above; try refreshing when online.';return}
  if(zelvunMap)return;
- zelvunMap=L.map('zelvunMap').setView([53.32,-0.94],10);
+ zelvunMap=L.map('zelvunMap').setView(mapCenter,10);
  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(zelvunMap);
  const samples=[
-  {lat:53.322,lng:-0.943,title:'Wild swimming',colour:'#21d4c5'},
-  {lat:53.345,lng:-0.78,title:'Pottery',colour:'#a855f7'},
-  {lat:53.28,lng:-0.97,title:'Basketball',colour:'#338cff'},
-  {lat:53.36,lng:-1.04,title:'Archery',colour:'#ff9b42'},
-  {lat:53.25,lng:-0.83,title:'Baking courses',colour:'#f45b9a'}
+  {lat:mapCenter[0]+0.002,lng:mapCenter[1]-0.003,title:'Wild swimming',colour:'#21d4c5'},
+  {lat:mapCenter[0]+0.025,lng:mapCenter[1]+0.16,title:'Pottery',colour:'#a855f7'},
+  {lat:mapCenter[0]-0.042,lng:mapCenter[1]-0.03,title:'Basketball',colour:'#338cff'},
+  {lat:mapCenter[0]+0.04,lng:mapCenter[1]-0.10,title:'Archery',colour:'#ff9b42'},
+  {lat:mapCenter[0]-0.072,lng:mapCenter[1]+0.11,title:'Baking courses',colour:'#f45b9a'}
  ];
  samples.forEach(s=>{
   const icon=L.divIcon({className:'',html:'<div style="background:'+s.colour+';width:24px;height:24px;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px #0008"></div>',iconSize:[24,24],iconAnchor:[12,24]});
@@ -152,10 +154,44 @@ function updateMapDemo(){
   item.append(title,p);mapResults.append(item);
  });
  mapNote.textContent='Showing '+terms.length+' illustrative search term'+(terms.length===1?'':'s')+' for '+loc+' within '+radius+'. These pins are examples, not verified listings; live groups, venues and event results still need a data connection.';
- if(zelvunMap){zelvunMap.invalidateSize();zelvunMap.setView([53.32,-0.94],10)}
+ if(zelvunMap){zelvunMap.invalidateSize();zelvunMap.setView(mapCenter,10)}
 }
 const leafletCss=document.createElement('link');leafletCss.rel='stylesheet';leafletCss.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(leafletCss);
 const leafletScript=document.createElement('script');leafletScript.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';leafletScript.onload=setupDemoMap;leafletScript.onerror=()=>{mapNote.textContent='Map tiles could not load in this preview. Live listing integration is a later step.'};document.head.appendChild(leafletScript);
+
+document.getElementById('usePhoneLocation').addEventListener('click',()=>{
+ const status=document.getElementById('locationStatus');
+ if(!('geolocation' in navigator)){status.textContent='Your browser does not support phone location. Please enter a postcode or place name instead.';return}
+ status.textContent='Requesting permission to use your phone location…';
+ navigator.geolocation.getCurrentPosition(position=>{
+  mapCenter=[position.coords.latitude,position.coords.longitude];
+  document.getElementById('mapLocation').value='Phone location selected';
+  status.textContent='Phone location selected. Your browser provided this location; it has not been saved by this prototype.';
+  if(zelvunMap){
+   demoMarkers.forEach(marker=>zelvunMap.removeLayer(marker));demoMarkers=[];
+   const samples=[
+    {lat:mapCenter[0]+0.002,lng:mapCenter[1]-0.003,title:'Wild swimming',colour:'#21d4c5'},
+    {lat:mapCenter[0]+0.025,lng:mapCenter[1]+0.16,title:'Pottery',colour:'#a855f7'},
+    {lat:mapCenter[0]-0.042,lng:mapCenter[1]-0.03,title:'Basketball',colour:'#338cff'},
+    {lat:mapCenter[0]+0.04,lng:mapCenter[1]-0.10,title:'Archery',colour:'#ff9b42'},
+    {lat:mapCenter[0]-0.072,lng:mapCenter[1]+0.11,title:'Baking courses',colour:'#f45b9a'}
+   ];
+   samples.forEach(s=>{
+    const icon=L.divIcon({className:'',html:'<div style="background:'+s.colour+';width:24px;height:24px;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px #0008"></div>',iconSize:[24,24],iconAnchor:[12,24]});
+    demoMarkers.push(L.marker([s.lat,s.lng],{icon}).addTo(zelvunMap).bindPopup('<strong>'+s.title+'</strong><br>Illustrative demo pin — not a real listing'));
+   });
+   zelvunMap.setView(mapCenter,10);
+  }
+  updateMapDemo();
+ },error=>{
+  const messages={1:'Location permission was denied. You can enter a postcode or place name instead.',2:'Your phone location is unavailable right now. Please try again or enter a place name.',3:'The location request timed out. Please try again.'};
+  status.textContent=messages[error.code]||'Could not get your phone location. Please enter a postcode or place name instead.';
+ },{enableHighAccuracy:false,timeout:10000,maximumAge:60000});
+});
+document.getElementById('mapLocation').addEventListener('input',()=>{
+ document.getElementById('locationStatus').textContent='Postcode and place-name geocoding will be connected in a later step; this prototype accepts the text but cannot locate it on the map yet.';
+});
+
 document.getElementById('mapSearchButton').addEventListener('click',()=>{updateMapDemo();if(zelvunMap)zelvunMap.invalidateSize()});
 mapTerms.forEach(el=>el.addEventListener('input',()=>{const filled=mapTerms.filter(x=>x.value.trim());if(filled.length>5){el.value='';mapNote.textContent='You can search up to five interests at once.'}}));
 
