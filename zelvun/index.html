@@ -148,6 +148,45 @@ body{background:#f1f7f8!important;color:#20272a!important}
  .mobile-nav{padding-bottom:max(9px,env(safe-area-inset-bottom))}
 }
 
+
+/* Hard override: enforce Zelvun's agreed light palette across legacy styles */
+:root{color-scheme:light!important;--bg:#f1f7f8!important;--panel:#ffffff!important;--panel2:#f7f9f9!important;--line:#e0e8e8!important;--text:#20272a!important;--muted:#667477!important;--purple:#252a2c!important;--blue:#252a2c!important;--pink:#d8f2e9!important;--green:#bfe8dc!important;--gold:#d7eae4!important}
+html,body{background:#f1f7f8!important;color:#20272a!important}
+body{background-image:none!important}
+.shell{background:transparent!important;color:#20272a!important}
+.top,.nav,.mobile-nav{background:#ffffff!important;color:#20272a!important;border-color:#e0e8e8!important}
+.brand strong,.brand small{color:#20272a!important}
+.navlinks a,.mobile-nav a{color:#4e5a5d!important}
+.navlinks a.active,.navlinks a:hover{background:#e6f4f0!important;color:#1b3430!important}
+.home-tabs a{background:#edf1f1!important;color:#3e4b4d!important}
+.home-tabs a.selected{background:#252a2c!important;color:#ffffff!important}
+.home-tabs a:last-child{background:#d8f2e9!important;color:#244a40!important}
+.homepage-map .map-search-panel,.map-search-panel{background:#ffffff!important;background-image:none!important;border-color:#e0e8e8!important;color:#20272a!important}
+.interest-sidebar h2,.interest-sidebar p,.section-head h2,.section-head p{color:inherit}
+.interest-sidebar .map-intro{color:#667477!important}
+.homepage-map .term-fields input,.term-fields input{background:#f7f9f9!important;background-image:none!important;color:#263234!important;border:1px solid #dce6e4!important}
+.homepage-map .term-fields input::placeholder,.term-fields input::placeholder{color:#748183!important}
+.homepage-map .map-tools,.map-tools{background:#f2f7f6!important;color:#263234!important;border-color:#e0e8e8!important}
+.homepage-map .map-tools label,.map-tools label{color:#526466!important}
+.homepage-map .map-tools input,.map-tools input,.location-entry input{background:#ffffff!important;color:#263234!important;border-color:#dce6e4!important}
+.homepage-map .map-tools .phone-location,.map-tools .phone-location{background:#ffffff!important;color:#263234!important;border-color:#dce6e4!important}
+.homepage-map .radius-label select,.radius-label select{background:#ffffff!important;color:#263234!important;border-color:#dce6e4!important}
+.nav-cta,.primary,.join-send{background:#252a2c!important;background-image:none!important;color:#ffffff!important;box-shadow:none!important}
+.secondary,.group-join-button{background:#d8f2e9!important;background-image:none!important;color:#244a40!important;border-color:#c7e8df!important}
+.card,.feature,.event,.explore-card,.feed-card,.article-row{background:#ffffff!important;color:#20272a!important;border-color:#e0e8e8!important}
+.card p,.feature p,.event p,.explore-card p,.feed-content p,.article-row p{color:#667477!important}
+.map-result,.homepage-map .map-result{background:#f8fbfa!important;color:#263234!important;border-color:#e0e8e8!important}
+.map-result p,.homepage-map .map-result p{color:#667477!important}
+.map-note,.homepage-map .map-note{color:#75613a!important}
+.news-panel{background:#e4f3ef!important;color:#20272a!important;border-color:#d3e9e3!important}
+.notice{background:#fff8e8!important;color:#715a2b!important;border-color:#eadbb5!important}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#ffffff!important;color:#20272a!important}
+@media(prefers-color-scheme:dark){
+ html,body{background:#f1f7f8!important;color:#20272a!important;color-scheme:light!important}
+ .top,.nav,.mobile-nav,.homepage-map .map-search-panel,.map-search-panel{background:#ffffff!important;color:#20272a!important}
+ .homepage-map .term-fields input,.term-fields input{background:#f7f9f9!important;color:#263234!important}
+}
+
 </style>
 </head>
 <body>
