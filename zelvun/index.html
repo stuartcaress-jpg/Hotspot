@@ -86,6 +86,21 @@ body{background:#f1f7f8;color:#20272a}
 @media(max-width:850px){.feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.feed-grid{grid-template-columns:1fr}.feed-visual{height:105px}.home-tabs a{padding:9px 13px}.map-search-panel{padding:13px}.hero{min-height:0}.article-row{padding:11px}.article-icon{width:44px;height:44px}}
 
+
+.group-join-button{display:inline-flex;align-self:flex-start;align-items:center;justify-content:center;margin-top:10px;padding:9px 13px;border:0;border-radius:999px;background:#d8f2e9;color:#244a40;font-weight:750;font-size:12px}
+.explore-card{display:flex;flex-direction:column;align-items:flex-start}
+.join-modal[hidden]{display:none}.join-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px}
+.join-backdrop{position:absolute;inset:0;background:#18222366;backdrop-filter:blur(4px)}
+.join-sheet{position:relative;width:min(100%,460px);max-height:calc(100dvh - 36px);overflow:auto;background:#fff;color:#20272a;border:1px solid #e0e8e8;border-radius:25px;padding:26px;box-shadow:0 22px 70px #152b2b30}
+.join-close{position:absolute;right:16px;top:13px;width:36px;height:36px;border:0;border-radius:50%;background:#f0f3f3;color:#222a2c;font-size:25px}
+.join-modal-icon{width:48px;height:48px;border-radius:15px;background:#d8f2e9;color:#285c50;display:grid;place-items:center;font-size:23px;margin-bottom:14px}
+.join-sheet h2{font-size:24px;line-height:1.15;margin:6px 0 8px}.join-subtitle{color:#667477;font-size:14px;margin:0 0 18px}
+.join-sheet label{display:block;font-weight:750;font-size:13px;margin:13px 0 6px}
+.join-sheet input,.join-sheet textarea{width:100%;border:1px solid #dce6e4;background:#f8fafa;border-radius:12px;padding:12px;color:#263234;resize:vertical}
+.join-hint{font-size:12px;color:#806b40;background:#fff8e8;border-radius:10px;padding:10px}
+.join-send{width:100%;border:0;border-radius:999px;background:#24292b;color:#fff;padding:13px;font-weight:800}
+@media(max-width:650px){.join-sheet{padding:22px;border-radius:22px}.group-join-button{width:100%}}
+
 </style>
 </head>
 <body>
@@ -188,13 +203,28 @@ body{background:#f1f7f8;color:#20272a}
 <article class="event searchable" data-tags="pottery art creative painting workshop classes"><div class="date">MAKE<b>03</b></div><div><h3>Creative workshops & classes</h3><p>Example listing · Check organiser details</p></div></article>
 </div><div class="notice">These are example categories, not confirmed events or bookings. Location and distance fields are currently a visual prototype; live venue and event data is not connected yet.</div></section>
 <section class="section" id="groups"><div class="section-head"><div><h2>Find your community</h2><p>From a friendly chat to a D&amp;D campaign, there's a group for every interest.</p></div></div><div class="explore-grid">
-<article class="explore-card searchable" data-tags="groups local community friendship"><div class="emoji">👥</div><h3>Join a group</h3><p>Find people who share your interests.</p><span class="pill">Community</span></article>
+<article class="explore-card searchable" data-tags="groups local community friendship"><div class="emoji">👥</div><h3>Join a group</h3><p>Find people who share your interests.</p><span class="pill">Community</span><button class="group-join-button" type="button" data-group="Community group">Ask to join ↗</button></article>
 <article class="explore-card searchable" data-tags="watch learn lessons tutorials education"><div class="emoji">▶️</div><h3>Watch & learn</h3><p>Explore videos, lectures and tutorials.</p><span class="pill">Learning</span></article>
 <article class="explore-card searchable" data-tags="gaming dungeons dragons board games hobbies"><div class="emoji">🎲</div><h3>Play together</h3><p>Discover tabletop games, RPGs and gaming groups.</p><span class="pill">Gaming</span></article>
 <article class="explore-card searchable" data-tags="wellbeing friendly chat loneliness friendship older adults"><div class="emoji">☕</div><h3>Have a friendly chat</h3><p>Make room for conversation and connection.</p><span class="pill">Wellbeing</span></article>
 <article class="explore-card searchable" data-tags="local meetups events clubs activities"><div class="emoji">📍</div><h3>Meet locally</h3><p>Turn shared interests into real-world meetups.</p><span class="pill">Local</span></article>
 </div></section>
 <div class="notice" id="create">Zelvun is being built in stages. This early homepage has working topic search and embedded YouTube players; accounts, user-submitted groups, messaging, live broadcasting, payments, gifts and donations are not enabled yet.</div>
+
+<div class="join-modal" id="joinModal" hidden role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
+ <div class="join-backdrop" data-close-join></div>
+ <section class="join-sheet">
+  <button class="join-close" type="button" aria-label="Close" data-close-join>×</button>
+  <div class="join-modal-icon">✉</div>
+  <p class="feed-tag">JOIN THE COMMUNITY</p>
+  <h2 id="joinModalTitle">Message the group organiser</h2>
+  <p class="join-subtitle">Introduce yourself and tell the organiser why you'd like to join.</p>
+  <label for="joinGroupName">Group</label><input id="joinGroupName" value="Community group" readonly>
+  <label for="joinMessage">Your message</label><textarea id="joinMessage" rows="4" maxlength="600">Hi, I'd love to find out more about your group and how I can join.</textarea>
+  <p class="join-hint" id="joinStatus">This is a design preview. Messages are not sent to an organiser yet.</p>
+  <button class="join-send" id="sendJoinMessage" type="button">Send join request</button>
+ </section>
+</div>
 <footer class="footer"><a class="brand" href="#home" style="gap:8px"><span class="logo" style="width:34px;height:34px"><svg class="pin-logo" viewBox="0 0 100 100" role="img" aria-label="Zelvun rainbow location pin"><defs><linearGradient id="pinGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c3cff"/><stop offset="24%" stop-color="#ed3eae"/><stop offset="48%" stop-color="#ff8b35"/><stop offset="67%" stop-color="#f6df39"/><stop offset="82%" stop-color="#28d89b"/><stop offset="100%" stop-color="#13c8ee"/></linearGradient><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#168bff"/><stop offset="30%" stop-color="#19d9ce"/><stop offset="55%" stop-color="#8b45ff"/><stop offset="76%" stop-color="#ff4fba"/><stop offset="100%" stop-color="#ffb33c"/></linearGradient></defs><path d="M50 7C29 7 14 23 14 43c0 23 25 43 36 55 11-12 36-32 36-55C86 23 71 7 50 7Z" fill="url(#pinGrad)"/><circle cx="50" cy="41" r="17" fill="#071426"/><ellipse cx="50" cy="86" rx="42" ry="8" fill="none" stroke="url(#ringGrad)" stroke-width="5"/><ellipse cx="50" cy="86" rx="29" ry="5" fill="none" stroke="url(#ringGrad)" stroke-width="4"/></svg></span><strong style="font-size:17px">ZELVUN</strong></a><span>Learn together. Connect together. Belong together.</span><span>Early preview · Built to grow with the community</span></footer>
 </main>
 <nav class="mobile-nav" aria-label="Quick navigation"><a href="#for-you"><span>⌂</span>For you</a><a href="#map-search"><span>⌖</span>Explore</a><a href="#create"><span>＋</span>Create</a><a href="#events"><span>▦</span>Events</a><a href="#groups"><span>♧</span>Groups</a></nav>
@@ -278,6 +308,22 @@ document.getElementById('mapLocation').addEventListener('input',()=>{
 document.getElementById('mapSearchButton').addEventListener('click',()=>{updateMapDemo();if(zelvunMap)zelvunMap.invalidateSize()});
 document.getElementById('toggleMapList').addEventListener('click',()=>{const list=document.getElementById('mapResults');const shown=list.classList.toggle('show');document.getElementById('toggleMapList').textContent=shown?'Hide list':'☷ View list'});
 mapTerms.forEach(el=>el.addEventListener('input',()=>{const filled=mapTerms.filter(x=>x.value.trim());if(filled.length>5){el.value='';mapNote.textContent='You can search up to five interests at once.'}}));
+
+
+const joinModal=document.getElementById('joinModal');
+const joinStatus=document.getElementById('joinStatus');
+document.querySelectorAll('.group-join-button').forEach(button=>button.addEventListener('click',()=>{
+ document.getElementById('joinGroupName').value=button.dataset.group||'Community group';
+ joinStatus.textContent='This is a design preview. Messages are not sent to an organiser yet.';
+ joinModal.hidden=false;
+ document.body.style.overflow='hidden';
+ document.getElementById('joinMessage').focus();
+}));
+document.querySelectorAll('[data-close-join]').forEach(button=>button.addEventListener('click',()=>{joinModal.hidden=true;document.body.style.overflow=''}));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!joinModal.hidden){joinModal.hidden=true;document.body.style.overflow=''}});
+document.getElementById('sendJoinMessage').addEventListener('click',()=>{
+ joinStatus.textContent='Your message preview is ready. Sending will work once Zelvun accounts and messaging are connected.';
+});
 
 const search=document.getElementById('search');
 const cards=[...document.querySelectorAll('.searchable')];
